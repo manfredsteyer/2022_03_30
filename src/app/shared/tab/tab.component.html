@@ -1,4 +1,10 @@
 <div class="tab" *ngIf="visible">
     <h2>{{title}}</h2>
-    <ng-content></ng-content>
+    <ng-content select=".main"></ng-content>
+
+    <hr>
+
+    <small>
+        <ng-content select=".footer"></ng-content>
+    </small>
 </div>

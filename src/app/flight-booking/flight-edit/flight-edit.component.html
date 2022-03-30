@@ -1,5 +1,80 @@
 <h1>Flight Edit</h1>
 
+
+<div style="position:relative; z-index: 100" *ngIf="showWarning" class="alert alert-warning">
+  <div>
+    Daten wurden nicht gespeichert! Trotzdem Maske verlassen?
+  </div>
+  <p>&nbsp;</p>
+  <div>
+    <a href="javascript:void(0)" (click)="decide(true)" class="btn btn-danger">Yes</a>
+    <a href="javascript:void(0)" (click)="decide(false)" class="btn btn-default">No</a>
+  </div>
+</div>
+
+<!-- <pre>{{flight | json}}</pre> -->
+
+<form [formGroup]="formGroup">
+  <input formControlName="id">
+  <input formControlName="from">
+  <input formControlName="to">
+  <input formControlName="date" appDate>
+  <app-date formControlName="date"></app-date>
+  <input formControlName="delayed" type="checkbox">
+
+  <div formGroupName="details">
+    <h4>Details</h4>
+    <input formControlName="direct" type="checkbox">
+    <input formControlName="price">
+  </div>
+
+  <h4>Stopovers</h4>
+  <ng-container *ngFor="let stopOver of stopOverControls">
+    <div [formGroup]="stopOver">
+      <input formControlName="airport">
+      <input formControlName="duration">
+    </div>
+  </ng-container>
+  <button (click)="addStopOver()">Add Stopover</button>
+
+  <p>&nbsp;</p>
+
+  <button (click)="save()">Save</button>
+</form>
+
+<div *ngIf="formGroup.controls.from.hasError('required')">
+  Required!!!
+</div>
+<div *ngIf="formGroup.controls.from.hasError('minlength')">
+  minLength!!!
+</div>
+<div *ngIf="formGroup.controls.from.hasError('city')">
+  city!!!
+</div>
+
+<div *ngIf="formGroup.hasError('roundTrip')">
+  RoundTrip!!!
+</div>
+
+<div *ngIf="formGroup.controls.from.pending">
+  <marquee>Validiere! Bitte warten!!!</marquee>
+</div>
+
+
+<pre *ngIf="!formGroup.controls.from.valid">{{formGroup.controls.from.errors | json}}
+</pre>
+
+
+<h4>Dynamic Form</h4>
+
+<form [formGroup]="formGroup">
+
+  <ng-container *ngFor="let item of meta">
+    <input [formControlName]="item.name" [type]="item.type">
+  </ng-container>
+
+</form>
+
 <p>
   Id: {{id}}
 </p>

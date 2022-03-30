@@ -1,8 +1,14 @@
 <div class="tabbed-pane">
 
     <div class="nav">
-        <span *ngFor="let tab of tabs"><a (click)="activate(tab)">{{tab.title}}</a></span>
+        <span *ngFor="let tab of tabList"><a (click)="activate(tab)">{{tab.title}}</a></span>
     </div>
 
     <ng-content></ng-content>
+
+    <app-tab-navigator #nav></app-tab-navigator>
+
+    <!-- CurrentTab: {{nav.currentTab}}
+    <button (click)="nav.next()">More</button> -->
+
 </div>

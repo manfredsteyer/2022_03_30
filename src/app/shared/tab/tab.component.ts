@@ -11,10 +11,4 @@ export class TabComponent {
   @Input() title = '';
   visible = true;
 
-  constructor(@Optional() tabbedPane: TabbedPaneComponent) {
-    if (tabbedPane) {
-      tabbedPane.register(this);
-    }
-  }
-
 }
